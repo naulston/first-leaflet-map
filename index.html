@@ -17,9 +17,9 @@
 <!--Leaflet Java Script-->
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 
-<!--Map container-->
+<!--Map container Location of the map-->
 <script>
-var map = L.map('map').setView([-41.2858, 174.78682], 14);
+var map = L.map('map').setView([51.505, -0.09], 13);
         mapLink = 
             '<a href="http://openstreetmap.org">OpenStreetMap</a>';
         L.tileLayer(
@@ -27,7 +27,13 @@ var map = L.map('map').setView([-41.2858, 174.78682], 14);
             attribution: '&copy; ' + mapLink + ' Contributors',
             maxZoom: 18,
             }).addTo(map);
-
+var marker = L.marker([51.5, -0.09]).addTo(map);
+var polygon = L.polygon([
+    [51.509, -0.08],
+    [51.503, -0.06],
+    [51.51, -0.047]
+]).addTo(map);
 </script>
+
 </body>
 </html>
