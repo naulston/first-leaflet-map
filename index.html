@@ -36,6 +36,11 @@ var polygon = L.polygon([
 ]).addTo(map);
 
 
+
+mymap.locate({setView: true, maxZoom: 15});
+
+
+
 /** bind the locationfound event to the function onLocationFound()
     in other words, tell Leaflet what to do once locate() is successful 
 **/
