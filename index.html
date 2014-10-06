@@ -35,6 +35,18 @@ var polygon = L.polygon([
     [51.51, -0.047]
 ]).addTo(map);
 
+
+/** bind the locationfound event to the function onLocationFound()
+    in other words, tell Leaflet what to do once locate() is successful 
+**/
+mymap.on('locationfound', onLocationFound);
+
+function onLocationFound(e) {
+    // create a marker at the users "latlng" and add it to the map
+    L.marker(e.latlng).addTo(mymap);
+}
+
+
 </script>
 
 </body>
