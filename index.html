@@ -18,7 +18,7 @@
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 
 <!--Link to Geojson file-->
-<sript type="text/javascript" src="map.geojson"></sript>
+<sript type="text/javascript" src="EBT_Event_none.geojson"></sript>
 
 <!--Map container Location of the map-->
 <!--map.locate({setView: true, maxZoom: 15});...setView([51.505, -0.09], 13);-->
@@ -31,6 +31,7 @@ var map = L.map('map').setView([51.505, -0.09], 13);
             attribution: '&copy; ' + mapLink + ' Contributors',
             maxZoom: 18,
             }).addTo(map);
+
 var marker = L.marker([51.5, -0.09]).addTo(map);
 marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 var polygon = L.polygon([
@@ -39,7 +40,7 @@ var polygon = L.polygon([
     [51.51, -0.047]
 ]).addTo(map);
 
-L.geoJson(map).addTo(map);
+L.geoJson(EBT_Event_none).addTo(map);
 
 map.locate({setView: true, maxZoom: 15});
 
