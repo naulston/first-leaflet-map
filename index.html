@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<h1>This is my favorite header to my map</h1>
+<h1>This is a map</h1>
 
 <!--Div for my map-->
 <div id="map"></div>
@@ -37,18 +37,18 @@ var polygon = L.polygon([
 
 
 
-mymap.locate({setView: true, maxZoom: 15});
+map.locate({setView: true, maxZoom: 15});
 
 
 
 /** bind the locationfound event to the function onLocationFound()
     in other words, tell Leaflet what to do once locate() is successful 
 **/
-mymap.on('locationfound', onLocationFound);
+map.on('locationfound', onLocationFound);
 
 function onLocationFound(e) {
     // create a marker at the users "latlng" and add it to the map
-    L.marker(e.latlng).addTo(mymap);
+    L.marker(e.latlng).addTo(map);
 }
 
 
