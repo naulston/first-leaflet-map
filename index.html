@@ -45,8 +45,9 @@ var map = L.map('map').locate({setView: true, maxZoom: 15});
             maxZoom: 18,
             }).addTo(map);
 
+L.marker(map.locate({setView: true, maxZoom: 15});).addTo(map);
 
-
+L.geoJson(EBT_Locations).addTo(map);
 </script>
 
 </body>
