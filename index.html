@@ -28,7 +28,7 @@
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 
 <!--Link to Geojson file-->
-<!--<script type="text/javascript" src="http://naulston.github.com/first-leaflet-map/EBT_Event_none.geojson"></script>-->
+<!--<script type="text/javascript" src="http://naulston.github.io/first-leaflet-map/EBT_Event_none.geojson"></script>-->
 
 <script type="text/javascript" src="EBT_AC_Locations.geojson"></script>
 
@@ -36,19 +36,21 @@
 <!--map.locate({setView: true, maxZoom: 15});...setView([51.505, -0.09], 13);-->
 
 <script>
-var map = L.map('map').locate({setView: true, maxZoom: 15});
+var map = L.map('map').locate({setView: true, maxZoom: 25});
         mapLink = 
             '<a href="http://openstreetmap.org">OpenStreetMap</a>';
         L.tileLayer(
             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; ' + mapLink + ' Contributors',
-            maxZoom: 18,
+            maxZoom: 25,
             }).addTo(map);
 
 
 
+
+
 function onLocationFound(e) {
-    var radius = e.accuracy / 2;
+    var radius = e.accuracy / 100;
 
     L.marker(e.latlng).addTo(map)
         .bindPopup("You are within " + radius + " meters from this point").openPopup();
@@ -58,7 +60,8 @@ function onLocationFound(e) {
 
 map.on('locationfound', onLocationFound);
 
-L.geoJson(EBT_Locations).addTo(map);
+var myLayer = L.geoJson().addTo(map);
+myLayer.addData(EBT_Locations);
 
 </script>
 
