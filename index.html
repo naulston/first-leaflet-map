@@ -36,27 +36,39 @@
 <!--map.locate({setView: true, maxZoom: 15});...setView([51.505, -0.09], 13);-->
 
 <script>
-var map = L.map('map').locate({setView: true, maxZoom: 15});
-        mapLink = 
-            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+function init(){
+    var map             = L.map('map', {center: [51.505, -0.09], zoom: 13}),
+        marker          = L.marker(map.getCenter()).addTo(map),
+        glcl            = google.loader.ClientLocation,
+        onLocationfound = function(e){
+          marker.setLatLng(e.latlng);
+          map.setView(marker.getLatLng(),map.getZoom()); 
+          alert('Marker has been set to position :'+marker.getLatLng().toString());
+        };
+        
+    mapLink = '<ahref="http://openstreetmap.org">OpenStreetMap</a>';
         L.tileLayer(
             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; ' + mapLink + ' Contributors',
             maxZoom: 18,
             }).addTo(map);
-
-map.on('locationfound', onLocationFound);
-function onLocationFound(e) {
-    L.marker(e.latlng).addTo(mymap);
+    
+    map.on('locationfound', onLocationfound);
+    
+    if(glcl){//when google.loader.ClientLocation contains result
+       onLocationfound({latlng:[glcl.latitude,glcl.longitude]});
+    }else{alert('google.loader.ClientLocation fails');}
+    map.locate();
 }
 
 
 L.geoJson(EBT_Locations).addTo(map);
 
-L.geoJson(EBT_Locations, {
-	onEachFeature: popup,
-	style: EBTStyle
-}).addTo(map);
+var geoJson = L.geoJson(EBT_Locations, {
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup(feature.properties.address);
+            }
+        });
 
 
 </script>
