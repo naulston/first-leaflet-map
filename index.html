@@ -25,7 +25,8 @@
 <div id="map"></div>
 
 <!--Leaflet Java Script-->
-<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script type='text/javascript' src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+ <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
 
 <!--Link to Geojson file-->
 <!--<script type="text/javascript" src="http://naulston.github.io/first-leaflet-map/EBT_Event_none.geojson"></script>-->
@@ -35,22 +36,26 @@
 <!--Map container Location of the map-->
 <!--map.locate({setView: true, maxZoom: 15});...setView([51.505, -0.09], 13);-->
 
+<!--L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+maxZoom: 18,
+attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+id: 'examples.map-20v6611k'
+}).addTo(map); -->
+
 <script>
-var map = L.map('map').locate({setView: true, maxZoom: 25});
+var map = L.map('map').locate({setView: true, maxZoom: 16});
         mapLink = 
             '<a href="http://openstreetmap.org">OpenStreetMap</a>';
         L.tileLayer(
             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; ' + mapLink + ' Contributors',
-            maxZoom: 25,
+            maxZoom: 16,
             }).addTo(map);
 
-
-
-
-
 function onLocationFound(e) {
-    var radius = e.accuracy / 100;
+    var radius = e.accuracy / .5;
 
     L.marker(e.latlng).addTo(map)
         .bindPopup("You are within " + radius + " meters from this point").openPopup();
@@ -60,8 +65,18 @@ function onLocationFound(e) {
 
 map.on('locationfound', onLocationFound);
 
+
 var myLayer = L.geoJson().addTo(map);
 myLayer.addData(EBT_Locations);
+
+
+myLayer.bindPopup(function (error, featureCollection) {
+    if(error || featureCollection.features.length === 0) {
+      return false;
+    } else {
+      return featureCollection.features[0].properties.Device;
+    }
+  });
 
 </script>
 
