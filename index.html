@@ -75,7 +75,7 @@ var myLayer = L.geoJson(EBT_Locations, {
 function yourOnEachFeatureFunction(feature, layer){
     if (feature.properties.Device) {
         layer.bindPopup('<b>' + feature.properties.LocationNa + '</b><br>Type:&nbsp;'
-            + feature.properties.Device + '<br>Surcharge:&nbsp;' + feature.properties.Surcharge + '&nbsp;' + feature.properties.SCAmount + '<br>Address:&nbsp;' + feature.properties.Street + ',&nbsp;' + feature.properties.City);
+            + feature.properties.Device + '<br>Surcharge:&nbsp;' + feature.properties.Surcharge + '<br>Amount:&nbsp;' + feature.properties.SCAmount + '<br>Address:&nbsp;' + feature.properties.Street + ',&nbsp;' + feature.properties.City);
     }
 }
 
