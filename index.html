@@ -75,7 +75,7 @@ var myLayer = L.geoJson(EBT_Locations, {
 
 
 //This is my attempt at changing the marker color
-this.eachLayer(function(marker) {
+eachLayer(function(marker) {
             if (marker.toGeoJSON().properties.Surcharge === 'YES') {
                 // The argument to L.mapbox.marker.icon is based on the
                 // simplestyle-spec: see that specification for a full
