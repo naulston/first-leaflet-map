@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="leaflet.usermarker.css" />
+<link rel="stylesheet" href="css/leaflet.awesome-markers.css">
 
 <style>
 #map{
@@ -27,6 +28,8 @@
 <!--Leaflet Java Script-->
 <script type='text/javascript' src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
  <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
+ <script src="js/leaflet.awesome-markers.js"></script>
+
 
 <!--Link to Geojson file-->
 <!--<script type="text/javascript" src="http://naulston.github.io/first-leaflet-map/EBT_Event_none.geojson"></script>-->
@@ -66,9 +69,10 @@ function onLocationFound(e) {
 map.on('locationfound', onLocationFound);
 
 
-
 var myLayer = L.geoJson().addTo(map);
 myLayer.addData(EBT_Locations);
+
+
 
 var myLayer = L.geoJson(EBT_Locations, {
     onEachFeature: yourOnEachFeatureFunction
@@ -76,41 +80,24 @@ var myLayer = L.geoJson(EBT_Locations, {
 
 
 
-var geojsonMarkerOptions = {
-    radius: 8,
-    fillColor: "#ff7800",
-    color:
-    if (feature.properties.Surcharge === 'YES')
-        {
-        return {color: "#000"};
+
+function setIcon(feature, layer) {
+    var layer; 
+    if (feature.properties.Surcharge=='YES') {
+        layer=L.marker(layer, {icon: greenicon});
     }
-    else
-        return {color: "#ff8888"};
-},
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
-
-L.geoJson(EBT_Locations, {
-    pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, geojsonMarkerOptions);
+    else {
+        layer=L.marker(layer, {icon: blueicon});
     }
-}).addTo(map);
+    //plq.bindPopup(feature.properties.plaquedesc);
+    //return plq;}
 
 
-function style(feature) {
-    return {
-        fillColor: getColor(feature.properties.Surcharge),
-        weight: 2,
-        opacity: 1,
-        color: '_____',
-        dashArray: '3',
-        fillOpacity: 0.7
-    };
-}
 
-L.geoJson(statesData, {style: style}).addTo(map);
+
+
+
+
 
 
 
@@ -126,3 +113,30 @@ function yourOnEachFeatureFunction(feature, layer){
 
 </body>
 </html>
+
+
+
+
+L.geoJson(EBT_Locations, {
+    pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, geojsonMarkerOptions);
+    }
+}).addTo(map);
+
+
+var Surcharged = {
+    "type" : "FeatureCollection",
+    "features" : _.filter(places.features, function(p) { 
+        return p.properties.Surcharge == 'YES';
+    })
+};
+
+
+
+var Surcharged = L.geoJson(EBT_Locations, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {icon: redMarker});
+    }
+}).addTo(map);
+
+
