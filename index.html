@@ -7,7 +7,17 @@
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="leaflet.usermarker.css" />
+
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+
+<!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
 <link rel="stylesheet" href="css/leaflet.awesome-markers.css">
+-->
+
+
+
 
 <style>
 #map{
@@ -69,6 +79,16 @@ function onLocationFound(e) {
 map.on('locationfound', onLocationFound);
 
 
+var redMarker = L.AwesomeMarkers.icon({
+  icon: 'coffee', 
+  color: 'red'
+})
+
+var blueMarker = L.AwesomeMarkers.icon({
+  icon: 'coffee', 
+  color: 'blue'
+})
+
 var myLayer = L.geoJson().addTo(map);
 myLayer.addData(EBT_Locations);
 
@@ -80,24 +100,22 @@ var myLayer = L.geoJson(EBT_Locations, {
 
 
 
+var myLayer = L.geoJson(EBT_Locations, {
 
-function setIcon(feature, layer) {
-    var layer; 
-    if (feature.properties.Surcharge=='YES') {
-        layer=L.marker(layer, {icon: greenicon});
-    }
-    else {
-        layer=L.marker(layer, {icon: blueicon});
-    }
-    //plq.bindPopup(feature.properties.plaquedesc);
-    //return plq;}
+    onEachFeature: yourOnEachFeatureFunction,
 
+    pointToLayer: function (feature, latlng) {
 
+        switch (feature.properties.Surcharge) {
 
+            case 'YES': return L.marker(latlng, {icon: blueMarker})
 
+            case 'NO': return L.marker(latlng, {icon: redMarker})
 
+}
+}
 
-
+}).addTo(map);
 
 
 
@@ -115,7 +133,10 @@ function yourOnEachFeatureFunction(feature, layer){
 </html>
 
 
+L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'coffee', markerColor: 'darkred', prefix: 'fa', iconColor: 'black'}) })
 
+
+http://chris-osm.blogspot.com/2013/11/using-leaflet-part-2.html
 
 L.geoJson(EBT_Locations, {
     pointToLayer: function (feature, latlng) {
@@ -139,4 +160,4 @@ var Surcharged = L.geoJson(EBT_Locations, {
     }
 }).addTo(map);
 
-
+case 'YES': return L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'coffee', markerColor: 'darkred', prefix: 'fa', iconColor: 'black'}) })
