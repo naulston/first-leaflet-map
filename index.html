@@ -75,28 +75,14 @@ myLayer.addData(EBT_Locations);
 
 
 var myLayer = L.geoJson(EBT_Locations, {
-    onEachFeature: yourOnEachFeatureFunction
+    onEachFeature: yourOnEachFeatureFunction,
+    pointToLayer: function (feature, latlng) {
+        switch (feature.properties.Surcharge) {
+            case 'YES': return L.marker(latlng, {icon: blueMarker});
+            case 'NO':   return L.marker(latlng, {icon: redMarker});
+}
+}
 }).addTo(map);
-
-
-
-
-function setIcon(feature, layer) {
-    var layer; 
-    if (feature.properties.Surcharge=='YES') {
-        layer=L.marker(layer, {icon: greenicon});
-    }
-    else {
-        layer=L.marker(layer, {icon: blueicon});
-    }
-    //plq.bindPopup(feature.properties.plaquedesc);
-    //return plq;}
-
-
-
-
-
-
 
 
 
